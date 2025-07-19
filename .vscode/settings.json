@@ -1,4 +1,4 @@
 {
-    "svelte.enable-ts-plugin": true,
-    "cSpell.words": ["Kazuha", "ассеты", "Роуты"]
+  "svelte.enable-ts-plugin": true,
+  "cSpell.words": ["skeletonlabs"]
 }
