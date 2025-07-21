@@ -1,9 +1,31 @@
+mod player;
+
+use chrono::Local;
+use player::{pause_audio, play_audio, restart_audio, resume_audio};
 use tauri::Manager;
+use tauri_plugin_log::{Target, TargetKind};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let now = Local::now();
+    let timestamp = now.format("%Y-%m-%d_%H-%M-%S").to_string();
+
+    let file_name = format!("{timestamp}.log");
+
     tauri::Builder::default()
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .targets([
+                    Target::new(TargetKind::Webview),
+                    Target::new(TargetKind::Stdout),
+                    Target::new(TargetKind::LogDir {
+                        file_name: Some(file_name),
+                    }),
+                ])
+                .build(),
+        )
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_dialog::init())
         .setup(|app| {
             let handle = app.handle();
             let window = handle.get_webview_window("main").unwrap();
@@ -13,6 +35,12 @@ pub fn run() {
 
             Ok(())
         })
+        .invoke_handler(tauri::generate_handler![
+            play_audio,
+            pause_audio,
+            resume_audio,
+            restart_audio
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

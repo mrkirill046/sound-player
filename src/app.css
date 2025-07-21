@@ -1,7 +1,74 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+
 @import "@skeletonlabs/skeleton";
 @import "@skeletonlabs/skeleton/optional/presets";
 @import "@skeletonlabs/skeleton/themes/cerberus";
 
+@theme inline {
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        width: 100%;
+        transition: scrollbar-color 0.3s ease-in-out;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0.5rem;
+        border: none;
+    }
+
+    ::-webkit-scrollbar-track {
+        border: none;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: none;
+        background-color: var(--accent);
+        border-radius: 0.25rem;
+    }
+
+    body {
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        overflow-x: hidden;
+        -ms-overflow-style: none;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    header {
+        flex: 0 0 auto;
+    }
+
+    main {
+        flex: 1 1 auto;
+    }
+
+    footer {
+        flex: 0 0 auto;
+    }
+
+    img {
+        pointer-events: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+}
+
 @source "../node_modules/@skeletonlabs/skeleton-svelte/dist";
+
+:root {
+    --radius: 0.625rem;
+}

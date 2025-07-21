@@ -17,11 +17,26 @@
         "height": 600,
         "transparent": true,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "label": "main",
+        "dragDropEnabled": true,
+        "url": "index.html"
       }
     ],
     "security": {
-      "csp": null
+      "csp": null,
+      "capabilities": [
+        {
+          "identifier": "capability",
+          "windows": ["*"],
+          "permissions": [
+            "fs:default",
+            "dialog:default",
+            "core:default",
+            "log:default"
+          ]
+        }
+      ]
     }
   },
   "bundle": {
