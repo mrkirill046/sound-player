@@ -3,5 +3,5 @@
 </script>
 
 <main class="container">
-    <h1 class="text-red-500">Welcome to Tauri + Svelte</h1>
+    <h1>Kazuha's Sound Player</h1>
 </main>

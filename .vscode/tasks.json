@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Dev Tauri App",
+            "type": "shell",
+            "command": "bun tauri dev",
+            "problemMatcher": [],
+            "group": "build",
+            "detail": "Запуск Tauri-приллжения в режиме разработки"
+        }
+    ]
+}

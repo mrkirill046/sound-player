@@ -12,9 +12,12 @@
   "app": {
     "windows": [
       {
-        "title": "sound-player",
+        "title": "Sound Player",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "transparent": true,
+        "resizable": true,
+        "fullscreen": false
       }
     ],
     "security": {
