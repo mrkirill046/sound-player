@@ -37,19 +37,7 @@ jobs:
       - name: 🏗 Install system dependencies (Debian/Ubuntu)
         if: runner.os == 'Linux'
         run: |
-          if [[ "${{ matrix.platform }}" == "debian-11" ]]; then
-            sudo apt update
-            sudo apt install -y \
-              libgtk-3-dev \
-              libwebkit2gtk-4.0-dev \
-              libayatana-appindicator3-dev \
-              libsoup-3.0-dev \
-              libglib2.0-dev \
-              libgdk-pixbuf2.0-dev \
-              pkg-config \
-              build-essential \
-              libasound2-dev
-          elif [[ "${{ matrix.platform }}" == "ubuntu-22.04" ]]; then
+          if [[ "${{ matrix.platform }}" == "ubuntu-22.04" ]]; then
             sudo apt update
             sudo apt install -y \
               libgtk-3-dev \
