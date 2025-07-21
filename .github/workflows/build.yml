@@ -35,7 +35,7 @@ jobs:
         run: bun add --dev @tauri-apps/cli
 
       - name: 🏗️ Install system dependencies (Linux)
-        if: runner.os == "Linux"
+        if: runner.os == 'Linux'
         run: |
           sudo apt update
           sudo apt install -y \
