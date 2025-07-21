@@ -46,7 +46,8 @@ jobs:
             libglib2.0-dev \
             libgdk-pixbuf2.0-dev \
             pkg-config \
-            build-essential
+            build-essential \
+            libasound2-dev
 
       - name: Install WebKitGTK runtime
         if: runner.os == 'Linux'
