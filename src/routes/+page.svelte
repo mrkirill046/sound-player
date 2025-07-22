@@ -208,7 +208,7 @@
                 </div>
 
                 <div>
-                    <p class="text-sm text-gray-600 mt-2 break-all">
+                    <p class="text-sm text-gray-500 mt-2 break-all">
                         Текущий файл: <code>{$currentPath}</code>
                     </p>
                 </div>
