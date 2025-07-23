@@ -5,7 +5,7 @@ use chrono::Local;
 use player::{pause_audio, play_audio, restart_audio, resume_audio};
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
-use utils::get_audio_cover;
+use utils::{get_audio_cover, is_valid_audio_file};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -15,6 +15,7 @@ pub fn run() {
     let file_name = format!("{timestamp}.log");
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
         .plugin(
             tauri_plugin_log::Builder::new()
                 .targets([
@@ -42,7 +43,8 @@ pub fn run() {
             pause_audio,
             resume_audio,
             restart_audio,
-            get_audio_cover
+            get_audio_cover,
+            is_valid_audio_file
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

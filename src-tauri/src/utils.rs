@@ -1,6 +1,7 @@
 use base64::engine::general_purpose;
 use base64::Engine as _;
 use lofty::{read_from_path, PictureType, TaggedFileExt};
+use std::path::Path;
 
 #[tauri::command]
 pub fn get_audio_cover(path: String) -> Result<Option<String>, String> {
@@ -30,4 +31,31 @@ pub fn get_audio_cover(path: String) -> Result<Option<String>, String> {
 
         Ok(None)
     }
+}
+
+#[tauri::command]
+pub fn is_valid_audio_file(path: String) -> Result<bool, String> {
+    log::debug!("Invoked is_valid_audio_file function with path: {}", path);
+
+    let p = Path::new(&path);
+
+    if !p.is_file() {
+        log::info!("Path is not a file");
+
+        return Ok(false);
+    }
+
+    let allowed = ["mp3", "wav", "ogg", "flac", "m4a", "aac", "opus"];
+
+    if let Some(ext) = p.extension().and_then(|e| e.to_str()) {
+        let ext = ext.to_lowercase();
+
+        if !allowed.contains(&ext.as_str()) {
+            log::info!("File extension not found or not supported");
+        }
+
+        return Ok(allowed.contains(&ext.as_str()));
+    }
+
+    Ok(false)
 }

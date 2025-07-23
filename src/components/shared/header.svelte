@@ -22,8 +22,8 @@
     {/snippet}
 
     {#snippet headline()}
-        <h2 class="text-4xl">Play Audio Files</h2>
+        <h2 class="text-4xl font-oswald">Play Audio Files</h2>
     {/snippet}
 
-    <h1>Kazuha's Sound Player</h1>
+    <h1 class="font-lobster">Kazuha's Sound Player</h1>
 </AppBar>
