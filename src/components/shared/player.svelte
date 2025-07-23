@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {currentPath, hasAudio, isPlaying} from "@/stores/audio-store"
+    import {cover, currentPath, hasAudio, isPlaying} from "@/stores/audio-store"
     import {invoke} from "@tauri-apps/api/core"
     import {open} from "@tauri-apps/plugin-dialog"
     import {getCurrentWebview} from "@tauri-apps/api/webview"
@@ -64,6 +64,8 @@
             await invoke("play_audio", {path})
 
             isPlaying.set(true)
+
+            await loadCover(path)
         } catch (e) {
             error(`play_audio failed: ${e}`)
         }
@@ -102,6 +104,24 @@
             isPlaying.set(true)
         } catch (e) {
             error(`restart_audio failed: ${e}`)
+        }
+    }
+
+    async function loadCover(path: string) {
+        debug("Invoke get_audio_cover function")
+
+        try {
+            let invokedCover: string | null = await invoke("get_audio_cover", {path})
+
+            if (invokedCover) {
+                cover.set(invokedCover)
+
+                info("Audio cover found")
+            } else {
+                info("Audio cover not found")
+            }
+        } catch (e) {
+            error(`get_audio_cover failed: ${e}`)
         }
     }
 
@@ -198,7 +218,7 @@
             >
                 <p class="text-sm text-secondary-800-200">
                     {#if $isHovering}
-                        Drop file
+                        Drop file here
                     {:else}
                         Click or drag & drop file here
                     {/if}
@@ -207,6 +227,14 @@
         </div>
     {:else if delayed}
         <div class="flex flex-col items-center justify-center" in:fade={{duration: 150, easing: quadInOut}}>
+            <article>
+                {#if $cover}
+                    <img src={$cover} alt="Cover" class="object-cover rounded-xl w-48 h-48" />
+                {:else}
+                    <div></div>
+                {/if}
+            </article>
+
             <div class="flex gap-3">
                 <button
                     on:click={resumeAudio}

@@ -59,6 +59,12 @@
     footer {
         flex: 0 0 auto;
     }
+
+    img {
+        user-select: none;
+        pointer-events: none;
+        -webkit-user-select: none;
+    }
 }
 
 @source "../node_modules/@skeletonlabs/skeleton-svelte/dist";

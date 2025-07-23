@@ -1,9 +1,11 @@
 mod player;
+mod utils;
 
 use chrono::Local;
 use player::{pause_audio, play_audio, restart_audio, resume_audio};
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
+use utils::get_audio_cover;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -39,7 +41,8 @@ pub fn run() {
             play_audio,
             pause_audio,
             resume_audio,
-            restart_audio
+            restart_audio,
+            get_audio_cover
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
