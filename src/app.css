@@ -4,7 +4,7 @@
 
 @import "@skeletonlabs/skeleton";
 @import "@skeletonlabs/skeleton/optional/presets";
-@import "@skeletonlabs/skeleton/themes/cerberus";
+@import "@skeletonlabs/skeleton/themes/wintry";
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
@@ -58,12 +58,6 @@
 
     footer {
         flex: 0 0 auto;
-    }
-
-    img {
-        pointer-events: none;
-        -webkit-user-select: none;
-        user-select: none;
     }
 }
 

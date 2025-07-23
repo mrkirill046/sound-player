@@ -4,28 +4,26 @@
     import {AppBar} from "@skeletonlabs/skeleton-svelte"
 </script>
 
-<header class="flex flex-col justify-center items-center">
-    <AppBar>
-        {#snippet lead()}
-            <button>
-                <ArrowLeft size={24} />
-            </button>
-        {/snippet}
+<AppBar>
+    {#snippet lead()}
+        <button>
+            <ArrowLeft size={24} />
+        </button>
+    {/snippet}
 
-        {#snippet trail()}
-            <button on:click={toggleTheme}>
-                {#if $theme === "dark"}
-                    <Moon size={20} />
-                {:else}
-                    <Sun size={20} />
-                {/if}
-            </button>
-        {/snippet}
+    {#snippet trail()}
+        <button on:click={toggleTheme}>
+            {#if $theme === "dark"}
+                <Moon size={20} />
+            {:else}
+                <Sun size={20} />
+            {/if}
+        </button>
+    {/snippet}
 
-        {#snippet headline()}
-            <h2 class="text-4xl">Play</h2>
-        {/snippet}
+    {#snippet headline()}
+        <h2 class="text-4xl">Play Audio Files</h2>
+    {/snippet}
 
-        <h1>Kazuha's Sound Player</h1>
-    </AppBar>
-</header>
+    <h1>Kazuha's Sound Player</h1>
+</AppBar>
