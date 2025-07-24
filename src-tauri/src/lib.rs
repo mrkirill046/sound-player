@@ -1,7 +1,10 @@
-mod player;
+pub mod player;
+pub mod utils;
+
+pub use player::{pause_audio, play_audio, restart_audio, resume_audio};
+pub use utils::{get_audio_cover, is_valid_audio_file};
 
 use chrono::Local;
-use player::{pause_audio, play_audio, restart_audio, resume_audio};
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
 
@@ -13,6 +16,7 @@ pub fn run() {
     let file_name = format!("{timestamp}.log");
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
         .plugin(
             tauri_plugin_log::Builder::new()
                 .targets([
@@ -39,7 +43,9 @@ pub fn run() {
             play_audio,
             pause_audio,
             resume_audio,
-            restart_audio
+            restart_audio,
+            get_audio_cover,
+            is_valid_audio_file
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
