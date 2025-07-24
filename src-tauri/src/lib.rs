@@ -1,11 +1,12 @@
-mod player;
-mod utils;
+pub mod player;
+pub mod utils;
+
+pub use player::{pause_audio, play_audio, restart_audio, resume_audio};
+pub use utils::{get_audio_cover, is_valid_audio_file};
 
 use chrono::Local;
-use player::{pause_audio, play_audio, restart_audio, resume_audio};
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
-use utils::{get_audio_cover, is_valid_audio_file};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

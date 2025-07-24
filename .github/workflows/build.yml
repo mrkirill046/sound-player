@@ -26,6 +26,9 @@ jobs:
           profile: minimal
           components: rustfmt
 
+      - name: 🧪 Run Rust tests
+        run: cd src-tauri && cargo test --verbose && cd ..
+
       - name: 📦 Install app dependencies
         run: bun install
 
