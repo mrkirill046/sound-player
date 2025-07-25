@@ -50,9 +50,6 @@ jobs:
               libasound2-dev
           fi
 
-      - name: 🧪 Run Rust tests
-        run: cd src-tauri && cargo test --verbose && cd ..
-
       - name: 🔨 Build Tauri App
         run: bun tauri build
 

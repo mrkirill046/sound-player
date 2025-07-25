@@ -6,20 +6,17 @@ use sound_player_lib::{
 const SAMPLE: &str = "tests/assets/audio/sample.mp3";
 
 #[test]
-#[ignore]
 fn test_play_audio_command() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
 }
 
 #[test]
-#[ignore]
 fn test_pause_audio_command() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
     pause_audio().expect("Failed to pause audio");
 }
 
 #[test]
-#[ignore]
 fn test_resume_audio_command() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
     pause_audio().expect("Failed to pause audio");
@@ -27,28 +24,24 @@ fn test_resume_audio_command() {
 }
 
 #[test]
-#[ignore]
 fn test_restart_audio_command() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
     restart_audio().expect("Failed to restart audio");
 }
 
 #[test]
-#[ignore]
 fn test_next_audio() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
     next_audio().expect("Can't go to next audio");
 }
 
 #[test]
-#[ignore]
 fn test_previous_audio() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
     previous_audio().expect("Can't go back to previous audio");
 }
 
 #[test]
-#[ignore]
 fn test_get_current_audio() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
 
