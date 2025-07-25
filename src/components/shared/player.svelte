@@ -1,11 +1,13 @@
 <script lang="ts">
     import {hasAudio} from "@/stores/audio-store"
-
     import Controls from "./controls.svelte"
     import DropZone from "./drop-zone.svelte"
+    import {onDestroy, onMount} from "svelte"
+    import {setupHotkeys} from "@/lib/hotkeys"
 
     let delayed: boolean = false
     let timeout: number
+    let cleanup: () => void
 
     $: hasAudio.subscribe((value) => {
         clearTimeout(timeout)
@@ -17,6 +19,14 @@
         } else {
             delayed = false
         }
+    })
+
+    onMount(() => {
+        cleanup = setupHotkeys()
+    })
+
+    onDestroy(() => {
+        cleanup?.()
     })
 </script>
 

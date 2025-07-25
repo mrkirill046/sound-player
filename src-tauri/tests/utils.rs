@@ -1,8 +1,8 @@
-use sound_player_lib::{get_audio_cover, is_valid_audio_file};
+use sound_player_lib::{build_playlist, get_audio_cover, is_valid_audio_file};
 
 #[test]
 fn test_is_valid_audio_file_command() {
-    let path = "tests/assets/sample.mp3".to_string();
+    let path = "tests/assets/audio/sample.mp3".to_string();
     let path_error = "tests/assets/sample.txt".to_string();
 
     assert_eq!(is_valid_audio_file(path), Ok(true));
@@ -11,7 +11,7 @@ fn test_is_valid_audio_file_command() {
 
 #[test]
 fn test_get_audio_cover_command() {
-    let cover_path = "tests/assets/sample_cover.wav".to_string();
+    let cover_path = "tests/assets/audio/sample_cover.wav".to_string();
     let cover_result = get_audio_cover(cover_path);
 
     match cover_result {
@@ -24,7 +24,7 @@ fn test_get_audio_cover_command() {
 
 #[test]
 fn test_not_get_audio_cover_command() {
-    let no_cover_path = "tests/assets/sample.mp3".to_string();
+    let no_cover_path = "tests/assets/audio/sample.mp3".to_string();
     let no_cover_result = get_audio_cover(no_cover_path);
 
     match no_cover_result {
@@ -36,4 +36,12 @@ fn test_not_get_audio_cover_command() {
         }
         Err(e) => panic!("Unexpected error on no-cover file: {}", e),
     }
+}
+
+#[test]
+fn test_build_playlist() {
+    let path = "tests/assets/audio/sample.mp3";
+    let result = build_playlist(path);
+
+    assert!(result.is_ok(), "Failed to build playlist");
 }
