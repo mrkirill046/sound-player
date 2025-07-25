@@ -1,22 +1,35 @@
-use once_cell::sync::Lazy;
-use rodio::{Decoder, OutputStream, Sink};
+use crate::{build_playlist, stop_current, AUDIO, CURRENT_INDEX, LAST_PATH, PLAYER, PLAYLIST};
+
+use rodio::{Decoder, Sink};
 use std::fs::File;
 use std::io::BufReader;
-use std::sync::Mutex;
-
-static PLAYER: Lazy<Mutex<Option<Sink>>> = Lazy::new(|| Mutex::new(None));
-static LAST_PATH: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
 
 #[tauri::command]
 pub fn play_audio(path: String) -> Result<(), String> {
     log::debug!("Invoked play_audio function with path: {}", path);
 
-    let (stream, handle) = OutputStream::try_default().map_err(|e| e.to_string())?;
-    let _ = Box::leak(Box::new(stream));
+    stop_current();
 
-    let sink = Sink::try_new(&handle).map_err(|e| e.to_string())?;
+    let need_init = {
+        let pl = PLAYLIST.lock().unwrap();
+
+        pl.is_empty() || !pl.iter().any(|p| *p == path)
+    };
+
+    if need_init {
+        build_playlist(&path)?;
+    } else {
+        let mut idx_guard = CURRENT_INDEX.lock().unwrap();
+        let pl = PLAYLIST.lock().unwrap();
+
+        if let Some(i) = pl.iter().position(|p| *p == path) {
+            *idx_guard = i;
+        }
+    }
+
     let file = File::open(&path).map_err(|e| e.to_string())?;
     let source = Decoder::new(BufReader::new(file)).map_err(|e| e.to_string())?;
+    let sink = Sink::try_new(&*AUDIO).map_err(|e| e.to_string())?;
 
     sink.append(source);
     sink.play();
@@ -62,4 +75,68 @@ pub fn restart_audio() -> Result<(), String> {
 
         Err("No last track to restart".into())
     }
+}
+
+#[tauri::command]
+pub fn next_audio() -> Result<(), String> {
+    log::debug!("Invoked next_audio function");
+
+    let path = {
+        let playlist = PLAYLIST.lock().unwrap();
+
+        if playlist.is_empty() {
+            log::error!("Playlist is empty");
+            return Err("Playlist is empty".into());
+        }
+
+        let mut index = CURRENT_INDEX.lock().unwrap();
+
+        *index = (*index + 1) % playlist.len();
+
+        playlist[*index].clone()
+    };
+
+    log::info!("Audio playback moved forward successfully");
+
+    play_audio(path)
+}
+
+#[tauri::command]
+pub fn previous_audio() -> Result<(), String> {
+    log::debug!("Invoked previous_audio function");
+
+    let path = {
+        let playlist = PLAYLIST.lock().unwrap();
+
+        if playlist.is_empty() {
+            log::error!("Playlist is empty");
+            return Err("Playlist is empty".into());
+        }
+
+        let mut index = CURRENT_INDEX.lock().unwrap();
+
+        *index = if *index == 0 {
+            playlist.len() - 1
+        } else {
+            *index - 1
+        };
+
+        playlist[*index].clone()
+    };
+
+    log::info!("Audio playback moved backward successfully");
+
+    play_audio(path)
+}
+
+#[tauri::command]
+pub fn get_current_audio() -> Option<String> {
+    log::debug!("Invoked get_current_audio function");
+
+    let playlist = PLAYLIST.lock().unwrap();
+    let index = *CURRENT_INDEX.lock().unwrap();
+
+    log::info!("Current audio got successfully");
+
+    playlist.get(index).cloned()
 }

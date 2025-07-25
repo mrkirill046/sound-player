@@ -1,8 +1,13 @@
+pub mod constants;
 pub mod player;
 pub mod utils;
 
-pub use player::{pause_audio, play_audio, restart_audio, resume_audio};
-pub use utils::{get_audio_cover, is_valid_audio_file};
+pub use constants::{AUDIO, CURRENT_INDEX, LAST_PATH, PLAYER, PLAYLIST};
+pub use player::{
+    get_current_audio, next_audio, pause_audio, play_audio, previous_audio, restart_audio,
+    resume_audio,
+};
+pub use utils::{build_playlist, get_audio_cover, is_valid_audio_file, stop_current};
 
 use chrono::Local;
 use tauri::Manager;
@@ -44,7 +49,10 @@ pub fn run() {
             pause_audio,
             resume_audio,
             restart_audio,
+            next_audio,
+            previous_audio,
             get_audio_cover,
+            get_current_audio,
             is_valid_audio_file
         ])
         .run(tauri::generate_context!())

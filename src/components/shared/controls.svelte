@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {pauseAudio, restartAudio, resumeAudio} from "@/lib/player"
+    import {nextAudio, pauseAudio, previousAudio, restartAudio, resumeAudio} from "@/lib/player"
     import {cover, currentPath, isPlaying} from "@/stores/audio-store"
     import {Ban, Heart, RotateCcw, SkipBack, SkipForward} from "@lucide/svelte"
     import {quadInOut} from "svelte/easing"
@@ -23,7 +23,7 @@
                 />
             {:else}
                 <div
-                    class="w-[40rem] h-[40rem] bg-gray-500/40 rounded-xl animate-pulse flex flex-col justify-center items-center gap-8"
+                    class="w-[40rem] h-[40rem] bg-gray-500/40 rounded-xl animate-pulse flex flex-col justify-center items-center gap-2 sm:gap-8"
                 >
                     <Ban size={48} />
                     <p class="text-4xl uppercase font-lobster">No cover :)</p>
@@ -35,20 +35,22 @@
     </article>
 
     <div>
-        <p class="text-sm text-gray-500 mt-2 break-all">
-            <code class="font-marker-gothic">{$currentPath}</code>
+        <p class="text-sm text-gray-500 mt-2 break-all px-6 sm:px-12 lg:px-24">
+            <code class="font-marker-gothic">
+                {$currentPath}
+            </code>
         </p>
     </div>
 </div>
 
 {#snippet Menu()}
-    <div class="flex items-center justify-between w-full px-2">
+    <div class="flex items-center justify-between w-full px-4 sm:px-8">
         <button on:click={restartAudio} aria-label="Restart">
             <RotateCcw />
         </button>
 
         <div class="flex gap-3">
-            <button>
+            <button on:click={previousAudio} aria-label="Previous Audio">
                 <SkipBack fill="currentColor" size={42} />
             </button>
 
@@ -62,7 +64,7 @@
                 </button>
             {/if}
 
-            <button>
+            <button on:click={nextAudio} aria-label="Next Audio">
                 <SkipForward fill="currentColor" size={42} />
             </button>
         </div>

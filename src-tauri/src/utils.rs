@@ -1,3 +1,5 @@
+use crate::{CURRENT_INDEX, PLAYER, PLAYLIST};
+
 use base64::engine::general_purpose;
 use base64::Engine as _;
 use lofty::{read_from_path, PictureType, TaggedFileExt};
@@ -58,4 +60,46 @@ pub fn is_valid_audio_file(path: String) -> Result<bool, String> {
     }
 
     Ok(false)
+}
+
+pub fn build_playlist(current_path: &str) -> Result<usize, String> {
+    let path = Path::new(current_path);
+    let parent = path.parent().ok_or("Invalid path, no parent directory")?;
+
+    let mut files: Vec<String> = std::fs::read_dir(parent)
+        .map_err(|e| e.to_string())?
+        .filter_map(|entry| {
+            let entry = entry.ok()?;
+            let p = entry.path();
+
+            if !p.is_file() {
+                return None;
+            }
+
+            let str = p.to_string_lossy().to_string();
+
+            match is_valid_audio_file(str.clone()) {
+                Ok(true) => Some(str),
+                _ => None,
+            }
+        })
+        .collect();
+
+    files.sort();
+
+    let current_index = files
+        .iter()
+        .position(|f| f == current_path)
+        .ok_or("Current file not found in playlist")?;
+
+    *PLAYLIST.lock().unwrap() = files;
+    *CURRENT_INDEX.lock().unwrap() = current_index;
+
+    Ok(current_index)
+}
+
+pub fn stop_current() {
+    if let Some(sink) = PLAYER.lock().unwrap().take() {
+        sink.stop();
+    }
 }
