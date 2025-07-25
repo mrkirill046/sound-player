@@ -1,6 +1,9 @@
-use sound_player_lib::{pause_audio, play_audio, restart_audio, resume_audio};
+use sound_player_lib::{
+    get_current_audio, next_audio, pause_audio, play_audio, previous_audio, restart_audio,
+    resume_audio,
+};
 
-const SAMPLE: &str = "tests/assets/sample.mp3";
+const SAMPLE: &str = "tests/assets/audio/sample.mp3";
 
 #[test]
 #[ignore]
@@ -28,4 +31,31 @@ fn test_resume_audio_command() {
 fn test_restart_audio_command() {
     play_audio(SAMPLE.into()).expect("Failed to play audio");
     restart_audio().expect("Failed to restart audio");
+}
+
+#[test]
+#[ignore]
+fn test_next_audio() {
+    play_audio(SAMPLE.into()).expect("Failed to play audio");
+    next_audio().expect("Can't go to next audio");
+}
+
+#[test]
+#[ignore]
+fn test_previous_audio() {
+    play_audio(SAMPLE.into()).expect("Failed to play audio");
+    previous_audio().expect("Can't go back to previous audio");
+}
+
+#[test]
+#[ignore]
+fn test_get_current_audio() {
+    play_audio(SAMPLE.into()).expect("Failed to play audio");
+
+    assert!(get_current_audio().is_some());
+}
+
+#[test]
+fn test_get_current_audio_empty() {
+    assert!(get_current_audio().is_none());
 }
