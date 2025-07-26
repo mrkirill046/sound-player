@@ -25,7 +25,6 @@ pub fn run() {
         .plugin(
             tauri_plugin_log::Builder::new()
                 .targets([
-                    Target::new(TargetKind::Webview),
                     Target::new(TargetKind::Stdout),
                     Target::new(TargetKind::LogDir {
                         file_name: Some(file_name),

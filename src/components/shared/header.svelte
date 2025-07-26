@@ -1,11 +1,14 @@
 <script lang="ts">
     import {goto} from "$app/navigation"
     import {page} from "$app/state"
+    import {initPalette} from "@/stores/palette-store"
     import {theme, toggleTheme} from "@/stores/theme-store"
     import {ArrowLeft, Moon, Sun, Settings, House} from "@lucide/svelte"
     import {AppBar} from "@skeletonlabs/skeleton-svelte"
 
     export let title: string
+
+    initPalette()
 </script>
 
 <AppBar>

@@ -4,11 +4,21 @@
 
 @import "@skeletonlabs/skeleton";
 @import "@skeletonlabs/skeleton/optional/presets";
+
 @import "@skeletonlabs/skeleton/themes/wintry";
+@import "@skeletonlabs/skeleton/themes/catppuccin";
+@import "@skeletonlabs/skeleton/themes/cerberus";
+@import "@skeletonlabs/skeleton/themes/concord";
+@import "@skeletonlabs/skeleton/themes/crimson";
+@import "@skeletonlabs/skeleton/themes/nosh";
+@import "@skeletonlabs/skeleton/themes/vintage";
+@import "@skeletonlabs/skeleton/themes/vox";
+@import "@skeletonlabs/skeleton/themes/terminus";
+@import "@skeletonlabs/skeleton/themes/seafoam";
 
 @font-face {
     font-family: "Lobster";
-    src: url("/fonts/Lobster.ttf") format("truetype");
+    src: url("/fonts/Lobster.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -16,7 +26,7 @@
 
 @font-face {
     font-family: "Marker Gothic";
-    src: url("/fonts/MarkerGothic.ttf") format("truetype");
+    src: url("/fonts/MarkerGothic.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -24,7 +34,7 @@
 
 @font-face {
     font-family: "Oswald";
-    src: url("/fonts/Oswald.ttf") format("truetype");
+    src: url("/fonts/Oswald.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;

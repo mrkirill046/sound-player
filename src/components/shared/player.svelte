@@ -30,7 +30,7 @@
     })
 </script>
 
-<article class="space-y-8 w-full">
+<article class="space-y-8 w-full my-2">
     {#if !$hasAudio}
         <DropZone />
     {:else if delayed}

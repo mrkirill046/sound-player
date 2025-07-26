@@ -9,9 +9,16 @@
     import {getCurrentWebview} from "@tauri-apps/api/webview"
     import {currentPath, hasAudio} from "@/stores/audio-store"
     import {playAudio} from "@/lib/player"
+    import {createToaster, Toaster} from "@skeletonlabs/skeleton-svelte"
 
     const isHovering = writable(false)
     const isEnter = writable(false)
+
+    const toaster = createToaster({
+        placement: "top",
+        max: 3,
+        duration: 1500
+    })
 
     let dropZone!: HTMLButtonElement
     let unlistenDragEvents: (() => void) | null = null
@@ -40,6 +47,8 @@
                     setTimeout(async () => {
                         await playAudio(selected)
                     }, 300)
+                } else {
+                    toaster.error({title: "File is not supported", closable: false})
                 }
             }
         } catch (e) {
@@ -106,6 +115,8 @@
                             setTimeout(() => {
                                 playAudio(path)
                             }, 300)
+                        } else {
+                            toaster.error({title: "File is not supported", closable: false})
                         }
                     } else {
                         debug("Drop was outside dropZone — ignored")
@@ -126,6 +137,8 @@
         }
     })
 </script>
+
+<Toaster {toaster} />
 
 <div
     class="pr-4 pl-4 sm:pl-24 sm:pr-24 lg:pr-32 lg:pl-32"

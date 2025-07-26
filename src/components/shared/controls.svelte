@@ -1,7 +1,7 @@
 <script lang="ts">
     import {nextAudio, pauseAudio, previousAudio, restartAudio, resumeAudio} from "@/lib/player"
     import {cover, currentPath, isPlaying} from "@/stores/audio-store"
-    import {Ban, Heart, RotateCcw, SkipBack, SkipForward} from "@lucide/svelte"
+    import {Heart, RotateCcw, SkipBack, SkipForward} from "@lucide/svelte"
     import {quadInOut} from "svelte/easing"
     import {fade} from "svelte/transition"
     import CustomCirclePlay from "@/components/icons/custom-circle-play.svelte"
@@ -17,17 +17,19 @@
                     src={$cover}
                     alt="Cover"
                     class={cn(
-                        "object-cover rounded-xl transition-transform duration-300 ease-in-out w-[40rem] h-[40rem]",
+                        "object-cover rounded-xl transition-transform duration-300 ease-in-out w-[30rem] sm:w-[40rem]",
                         $isPlaying ? "scale-100" : "scale-95"
                     )}
                 />
             {:else}
-                <div
-                    class="w-[40rem] h-[40rem] bg-gray-500/40 rounded-xl animate-pulse flex flex-col justify-center items-center gap-2 sm:gap-8"
-                >
-                    <Ban size={48} />
-                    <p class="text-4xl uppercase font-lobster">No cover :)</p>
-                </div>
+                <img
+                    src="/no-cover.webp"
+                    alt="Cover not found"
+                    class={cn(
+                        "object-cover bg-gray-500/40 rounded-xl transition-transform duration-300 ease-in-out w-[30rem] sm:w-[40rem] animate-pulse",
+                        $isPlaying ? "scale-100" : "scale-95"
+                    )}
+                />
             {/if}
 
             {@render Menu()}
