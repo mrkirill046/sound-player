@@ -1,11 +1,9 @@
 <script lang="ts">
     import Header from "@/components/shared/header.svelte"
     import Player from "@/components/shared/player.svelte"
-    import {invoke} from "@tauri-apps/api/core"
-    import {debug} from "@tauri-apps/plugin-log"
     import {onMount} from "svelte"
     import {listen} from "@tauri-apps/api/event"
-    import {playAudio} from "@/lib/player"
+    import {frontendReady, playAudio} from "@/lib/player"
     import {info, error} from "@tauri-apps/plugin-log"
     import {isFileSupported, toaster} from "@/lib/utils"
     import {currentPath, hasAudio} from "@/stores/audio-store"
@@ -32,9 +30,7 @@
     })
 
     onMount(async () => {
-        debug("Invoke frontend_ready function")
-
-        await invoke("frontend_ready")
+        await frontendReady()
     })
 </script>
 
