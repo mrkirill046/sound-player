@@ -26,3 +26,6 @@ chrono = "0.4"
 log = "0.4"
 lofty = "0.18"
 base64 = "0.22"
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-single-instance = "2"

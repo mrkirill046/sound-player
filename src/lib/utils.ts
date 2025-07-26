@@ -1,3 +1,4 @@
+import {createToaster} from "@skeletonlabs/skeleton-svelte"
 import {invoke} from "@tauri-apps/api/core"
 import {debug, error} from "@tauri-apps/plugin-log"
 import {type ClassValue, clsx} from "clsx"
@@ -26,3 +27,9 @@ export const isFileSupported = async (path: string): Promise<boolean> => {
         return false
     }
 }
+
+export const toaster = createToaster({
+    placement: "top",
+    max: 3,
+    duration: 1500
+})

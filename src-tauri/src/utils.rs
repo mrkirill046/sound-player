@@ -4,6 +4,7 @@ use base64::engine::general_purpose;
 use base64::Engine as _;
 use lofty::{read_from_path, PictureType, TaggedFileExt};
 use std::path::Path;
+use tauri::{AppHandle, Emitter, Manager};
 
 #[tauri::command]
 pub fn get_audio_cover(path: String) -> Result<Option<String>, String> {
@@ -101,5 +102,13 @@ pub fn build_playlist(current_path: &str) -> Result<usize, String> {
 pub fn stop_current() {
     if let Some(sink) = PLAYER.lock().unwrap().take() {
         sink.stop();
+    }
+}
+
+pub fn handle_initial_argv(app: &AppHandle) {
+    if let Some(path) = std::env::args().nth(1) {
+        if let Some(win) = app.get_webview_window("main") {
+            let _ = win.emit("open-file", path);
+        }
     }
 }

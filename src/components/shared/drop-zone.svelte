@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {cn, isFileSupported} from "@/lib/utils"
+    import {cn, isFileSupported, toaster} from "@/lib/utils"
     import {debug, error, info} from "@tauri-apps/plugin-log"
     import {quadInOut} from "svelte/easing"
     import {writable} from "svelte/store"
@@ -9,16 +9,10 @@
     import {getCurrentWebview} from "@tauri-apps/api/webview"
     import {currentPath, hasAudio} from "@/stores/audio-store"
     import {playAudio} from "@/lib/player"
-    import {createToaster, Toaster} from "@skeletonlabs/skeleton-svelte"
+    import {Toaster} from "@skeletonlabs/skeleton-svelte"
 
     const isHovering = writable(false)
     const isEnter = writable(false)
-
-    const toaster = createToaster({
-        placement: "top",
-        max: 3,
-        duration: 1500
-    })
 
     let dropZone!: HTMLButtonElement
     let unlistenDragEvents: (() => void) | null = null
