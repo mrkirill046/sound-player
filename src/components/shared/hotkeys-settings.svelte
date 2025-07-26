@@ -32,7 +32,7 @@
 
 <svelte:window on:keydown={onKeydown} />
 
-<div class="space-y-6 p-6 px-12 w-full">
+<section class="space-y-6 p-6 px-12">
     <h2 class="text-4xl font-bold font-marker-gothic text-center">Hotkeys</h2>
 
     <div class="overflow-x-auto rounded-lg shadow">
@@ -77,4 +77,4 @@
     >
         Reset to default
     </button>
-</div>
+</section>

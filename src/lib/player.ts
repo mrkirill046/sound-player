@@ -118,3 +118,9 @@ export async function refreshCurrentAudio() {
         error(`get_current_audio failed: ${e}`)
     }
 }
+
+export async function frontendReady() {
+    debug("Invoke frontend_ready function")
+
+    await invoke("frontend_ready")
+}

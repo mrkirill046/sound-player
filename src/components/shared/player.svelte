@@ -4,6 +4,8 @@
     import DropZone from "./drop-zone.svelte"
     import {onDestroy, onMount} from "svelte"
     import {setupHotkeys} from "@/lib/hotkeys"
+    import {toaster} from "@/lib/utils"
+    import {Toaster} from "@skeletonlabs/skeleton-svelte"
 
     let delayed: boolean = false
     let timeout: number
@@ -21,7 +23,7 @@
         }
     })
 
-    onMount(() => {
+    onMount(async () => {
         cleanup = setupHotkeys()
     })
 
@@ -30,7 +32,9 @@
     })
 </script>
 
-<article class="space-y-8 w-full">
+<Toaster {toaster} />
+
+<article class="space-y-8 w-full my-2">
     {#if !$hasAudio}
         <DropZone />
     {:else if delayed}

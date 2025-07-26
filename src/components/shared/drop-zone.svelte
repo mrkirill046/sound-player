@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {cn, isFileSupported} from "@/lib/utils"
+    import {cn, isFileSupported, toaster} from "@/lib/utils"
     import {debug, error, info} from "@tauri-apps/plugin-log"
     import {quadInOut} from "svelte/easing"
     import {writable} from "svelte/store"
@@ -9,6 +9,7 @@
     import {getCurrentWebview} from "@tauri-apps/api/webview"
     import {currentPath, hasAudio} from "@/stores/audio-store"
     import {playAudio} from "@/lib/player"
+    import {Toaster} from "@skeletonlabs/skeleton-svelte"
 
     const isHovering = writable(false)
     const isEnter = writable(false)
@@ -40,6 +41,8 @@
                     setTimeout(async () => {
                         await playAudio(selected)
                     }, 300)
+                } else {
+                    toaster.error({title: "File is not supported", closable: false})
                 }
             }
         } catch (e) {
@@ -106,6 +109,8 @@
                             setTimeout(() => {
                                 playAudio(path)
                             }, 300)
+                        } else {
+                            toaster.error({title: "File is not supported", closable: false})
                         }
                     } else {
                         debug("Drop was outside dropZone — ignored")
@@ -126,6 +131,8 @@
         }
     })
 </script>
+
+<Toaster {toaster} />
 
 <div
     class="pr-4 pl-4 sm:pl-24 sm:pr-24 lg:pr-32 lg:pl-32"
