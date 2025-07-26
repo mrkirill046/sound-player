@@ -2,49 +2,18 @@ pub mod constants;
 pub mod player;
 pub mod utils;
 
-use std::sync::Mutex;
-
-pub use constants::{AUDIO, CURRENT_INDEX, LAST_PATH, PLAYER, PLAYLIST};
+pub use constants::{AppState, AUDIO, CURRENT_INDEX, LAST_PATH, PLAYER, PLAYLIST};
 pub use player::{
     get_current_audio, next_audio, pause_audio, play_audio, previous_audio, restart_audio,
     resume_audio,
 };
 pub use utils::{
-    build_playlist, get_audio_cover, handle_initial_argv, is_valid_audio_file, stop_current,
+    build_playlist, frontend_ready, get_audio_cover, is_valid_audio_file, stop_current,
 };
 
 use chrono::Local;
-use tauri::{AppHandle, Emitter, Manager};
+use tauri::{Emitter, Manager};
 use tauri_plugin_log::{Target, TargetKind};
-
-struct AppState {
-    initial_path: Mutex<Option<String>>,
-}
-
-impl AppState {
-    fn new() -> Self {
-        Self {
-            initial_path: Mutex::new(None),
-        }
-    }
-}
-
-#[tauri::command]
-fn frontend_ready(app: AppHandle, state: tauri::State<'_, AppState>) {
-    log::debug!("Invoked frontend_ready function");
-
-    if let Some(path) = state.initial_path.lock().unwrap().take() {
-        if let Some(win) = app.get_webview_window("main") {
-            let _ = win.emit("open-file", path);
-
-            log::info!("Emit open-file event successfully");
-        } else {
-            log::error!("Error while emit open-file event");
-        }
-    } else {
-        log::debug!("No path provided in start");
-    }
-}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -89,14 +58,6 @@ pub fn run() {
 
             #[cfg(not(windows))]
             let _ = window.set_decorations(false);
-
-            let handle_clone = handle.clone();
-
-            tauri::async_runtime::spawn(async move {
-                std::thread::sleep(std::time::Duration::from_millis(500));
-
-                handle_initial_argv(&handle_clone);
-            });
 
             Ok(())
         })

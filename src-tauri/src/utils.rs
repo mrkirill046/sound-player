@@ -1,4 +1,4 @@
-use crate::{CURRENT_INDEX, PLAYER, PLAYLIST};
+use crate::{AppState, CURRENT_INDEX, PLAYER, PLAYLIST};
 
 use base64::engine::general_purpose;
 use base64::Engine as _;
@@ -105,10 +105,19 @@ pub fn stop_current() {
     }
 }
 
-pub fn handle_initial_argv(app: &AppHandle) {
-    if let Some(path) = std::env::args().nth(1) {
+#[tauri::command]
+pub fn frontend_ready(app: AppHandle, state: tauri::State<'_, AppState>) {
+    log::debug!("Invoked frontend_ready function");
+
+    if let Some(path) = state.initial_path.lock().unwrap().take() {
         if let Some(win) = app.get_webview_window("main") {
             let _ = win.emit("open-file", path);
+
+            log::info!("Emit open-file event sent successfully");
+        } else {
+            log::error!("Error while emit open-file event");
         }
+    } else {
+        log::debug!("No path provided in start");
     }
 }

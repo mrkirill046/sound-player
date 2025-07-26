@@ -14,3 +14,15 @@ pub static PLAYER: Lazy<Mutex<Option<Sink>>> = Lazy::new(|| Mutex::new(None));
 pub static LAST_PATH: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
 pub static PLAYLIST: Lazy<Mutex<Vec<String>>> = Lazy::new(|| Mutex::new(Vec::new()));
 pub static CURRENT_INDEX: Lazy<Mutex<usize>> = Lazy::new(|| Mutex::new(0));
+
+pub struct AppState {
+    pub initial_path: Mutex<Option<String>>,
+}
+
+impl AppState {
+    pub fn new() -> Self {
+        Self {
+            initial_path: Mutex::new(None),
+        }
+    }
+}
