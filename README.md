@@ -1,10 +1,11 @@
 # 🎧 Sound Player
 
-[![Status](https://img.shields.io/badge/status-in%20development-yellow?style=flat-square&logo=appveyor)](https://github.com/yourname/sound-player)
+[![Status](https://img.shields.io/badge/status-stable-green?style=flat-square&logo=appveyor)](https://github.com/mrkirill046/sound-player)
 [![Built with Tauri](https://img.shields.io/badge/built%20with-tauri-blueviolet?logo=tauri&style=flat-square)](https://tauri.app/)
 [![Svelte](https://img.shields.io/badge/Svelte-powered-ff3e00?logo=svelte&logoColor=white&style=flat-square)](https://svelte.dev/)
 [![Rust](https://img.shields.io/badge/Rust-%23000000.svg?style=flat-square&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/mrkirill046/sound-player?style=flat-square&logo=github)](https://github.com/mrkirill046/sound-player/releases/latest)
 
 > Мощный, кроссплатформенный и лёгкий музыкальный плеер, построенный на **Rust**, **Tauri**, **Svelte** и **Skeleton UI**.  
 > Минимализм. Скорость. Красота.
@@ -59,8 +60,15 @@ bun tauri build
 
 ## 🖼️ Скриншоты
 
-*В разработке…*
-Здесь скоро будет красивейший интерфейс 🧪
+<details>
+    <summary>Главное окно</summary>
+    <img src="assets/screenshot-1.png"/>
+    <img src="assets/screenshot-2.png"/>
+</details>
+<details>
+    <summary>Настройки</summary>
+    <img src="assets/screenshot-3.png"/>
+</details>
 
 ---
 
@@ -93,8 +101,8 @@ sound-player/
 
 ## 🧩 Планы на будущее
 
-- [ ] Горячие клавиши и медиа-кнопки
-- [ ] Настройки тем и визуализация звука
+- [x] Горячие клавиши и медиа-кнопки
+- [x] Настройки тем
 - [ ] Плагины и расширения
 
 ---
