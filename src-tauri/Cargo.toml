@@ -1,6 +1,6 @@
 [package]
 name = "sound-player"
-version = "0.1.3"
+version = "1.0.0"
 description = "Sound Player"
 authors = ["mrkir"]
 edition = "2021"
