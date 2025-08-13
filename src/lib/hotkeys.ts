@@ -1,7 +1,7 @@
 import {get} from "svelte/store"
 import {hotkeys} from "@/stores/hotkeys-store"
 import {hasAudio, isPlaying} from "@/stores/audio-store"
-import {pauseAudio, resumeAudio, nextAudio, previousAudio, restartAudio} from "@/lib/player"
+import {nextAudio, pauseAudio, previousAudio, restartAudio, resumeAudio} from "@/lib/player"
 
 type Cleanup = () => void
 

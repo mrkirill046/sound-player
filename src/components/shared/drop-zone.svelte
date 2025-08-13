@@ -10,6 +10,7 @@
     import {currentPath, hasAudio} from "@/stores/audio-store"
     import {playAudio} from "@/lib/player"
     import {Toaster} from "@skeletonlabs/skeleton-svelte"
+    import {t} from "svelte-i18n"
 
     const isHovering = writable(false)
     const isEnter = writable(false)
@@ -42,7 +43,7 @@
                         await playAudio(selected)
                     }, 300)
                 } else {
-                    toaster.error({title: "File is not supported", closable: false})
+                    toaster.error({title: $t("Toast.FileNotSupported"), closable: false})
                 }
             }
         } catch (e) {
@@ -54,6 +55,12 @@
         const rect = el.getBoundingClientRect()
 
         return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom
+    }
+
+    function AnimateOutroend(el: CustomEvent) {
+        const target = el.target as HTMLElement
+
+        target.classList.add("hidden")
     }
 
     onMount(async () => {
@@ -110,7 +117,7 @@
                                 playAudio(path)
                             }, 300)
                         } else {
-                            toaster.error({title: "File is not supported", closable: false})
+                            toaster.error({title: $t("Toast.FileNotSupported"), closable: false})
                         }
                     } else {
                         debug("Drop was outside dropZone — ignored")
@@ -132,35 +139,31 @@
     })
 </script>
 
-<Toaster {toaster} />
+<Toaster {toaster}/>
 
 <div
     class="pr-4 pl-4 sm:pl-24 sm:pr-24 lg:pr-32 lg:pl-32"
+    on:outroend={(el: CustomEvent) => AnimateOutroend(el)}
     out:fade={{duration: 150, easing: quadInOut}}
-    on:outroend={(el: CustomEvent) => {
-        const target = el.target as HTMLElement
-
-        target.classList.add("hidden")
-    }}
 >
     <button
-        type="button"
+        bind:this={dropZone}
         class={cn(
             "border-2 z-10 w-full p-24 text-center rounded-lg select-none",
             "transition-all duration-300 hover:shadow-md",
             "bg-surface-100-900 border-secondary-400-600 text-secondary-800-200",
             $isEnter ? "ring-4 ring-blue-400 shadow-2xl scale-[1.1]" : "border-dashed"
         )}
-        bind:this={dropZone}
         on:click={openFileDialog}
+        type="button"
     >
         <p class="text-sm font-marker-gothic">
             {#if $isHovering}
-                Drop file here
+                {$t("DropZone.Drop")}
             {:else if $isEnter}
-                Drag file here
+                {$t("DropZone.Drag")}
             {:else}
-                Click or drag & drop file here
+                {$t("DropZone.ClickOrDrag")}
             {/if}
         </p>
     </button>

@@ -1,6 +1,7 @@
 <script lang="ts">
-    import {currentPalette, palettes, setPallette, type Palette} from "@/stores/palette-store"
+    import {currentPalette, type Palette, palettes, setPallette} from "@/stores/palette-store"
     import {get} from "svelte/store"
+    import {t} from "svelte-i18n"
 
     let paletteMap = get(palettes)
     let selected = get(currentPalette)
@@ -18,15 +19,15 @@
 </script>
 
 <section class="space-y-6 p-6 px-12">
-    <h2 class="text-4xl font-bold font-marker-gothic text-center">Themes</h2>
+    <h2 class="text-4xl font-bold font-marker-gothic text-center">{$t("Settings.Themes")}</h2>
 
     <div class="overflow-x-auto rounded-lg shadow">
         <table class="w-full border-collapse bg-surface-100-900 rounded-lg text-center">
             <thead>
                 <tr class="bg-surface-300-700">
-                    <th class="p-3 text-sm font-semibold font-marker-gothic">Theme</th>
-                    <th class="p-3 text-sm font-semibold font-marker-gothic">Colors</th>
-                    <th class="p-3 text-sm font-semibold font-marker-gothic">Action</th>
+                    <th class="p-3 text-sm font-semibold font-marker-gothic">{$t("Settings.Theme")}</th>
+                    <th class="p-3 text-sm font-semibold font-marker-gothic">{$t("Settings.Colors")}</th>
+                    <th class="p-3 text-sm font-semibold font-marker-gothic">{$t("Settings.Action")}</th>
                 </tr>
             </thead>
 
@@ -49,7 +50,7 @@
                                 class:selected={selected === theme}
                                 on:click={() => applyTheme(theme)}
                             >
-                                {selected === theme ? "Current" : "Apply"}
+                                {selected === theme ? $t("Settings.Current") : $t("Settings.Apply")}
                             </button>
                         </td>
                     </tr>
@@ -62,6 +63,6 @@
         class="mt-4 px-4 py-2 bg-red-500 text-white rounded text-sm font-marker-gothic hover:bg-red-600 transition-colors duration-300 ease-in-out"
         on:click={resetToDefaults}
     >
-        Reset to default
+        {$t("Settings.Reset")}
     </button>
 </section>

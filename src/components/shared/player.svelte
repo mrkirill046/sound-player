@@ -32,12 +32,12 @@
     })
 </script>
 
-<Toaster {toaster} />
+<Toaster {toaster}/>
 
 <article class="space-y-8 w-full my-2">
     {#if !$hasAudio}
-        <DropZone />
+        <DropZone/>
     {:else if delayed}
-        <Controls />
+        <Controls/>
     {/if}
 </article>

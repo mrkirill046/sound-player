@@ -5,20 +5,20 @@
 </script>
 
 <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    class={cn($$props.class, "lucide-icon lucide")}
-    width={size}
-    height={size}
-    fill="currentColor"
+        class={cn($$props.class, "lucide-icon lucide")}
+        fill="currentColor"
+        height={size}
+        viewBox="0 0 24 24"
+        width={size}
+        xmlns="http://www.w3.org/2000/svg"
 >
     <defs>
         <mask id="pause-mask">
-            <rect width="24" height="24" fill="white" />
-            <rect x="9" y="8" width="2" height="8" fill="black" />
-            <rect x="13" y="8" width="2" height="8" fill="black" />
+            <rect fill="white" height="24" width="24"/>
+            <rect fill="black" height="8" width="2" x="9" y="8"/>
+            <rect fill="black" height="8" width="2" x="13" y="8"/>
         </mask>
     </defs>
 
-    <circle cx="12" cy="12" r="10" mask="url(#pause-mask)" />
+    <circle cx="12" cy="12" mask="url(#pause-mask)" r="10"/>
 </svg>

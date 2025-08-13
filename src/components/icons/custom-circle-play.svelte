@@ -5,19 +5,19 @@
 </script>
 
 <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    class={cn($$props.class, "lucide-icon lucide")}
-    width={size}
-    height={size}
-    fill="currentColor"
+        class={cn($$props.class, "lucide-icon lucide")}
+        fill="currentColor"
+        height={size}
+        viewBox="0 0 24 24"
+        width={size}
+        xmlns="http://www.w3.org/2000/svg"
 >
     <defs>
         <mask id="play-mask">
-            <rect width="24" height="24" fill="white" />
-            <polygon points="10,8 16,12 10,16" fill="black" />
+            <rect fill="white" height="24" width="24"/>
+            <polygon fill="black" points="10,8 16,12 10,16"/>
         </mask>
     </defs>
 
-    <circle cx="12" cy="12" r="10" mask="url(#play-mask)" />
+    <circle cx="12" cy="12" mask="url(#play-mask)" r="10"/>
 </svg>
