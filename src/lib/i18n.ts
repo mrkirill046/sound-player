@@ -1,7 +1,10 @@
 import {init, register} from "svelte-i18n"
 
-register("en", () => import("@/locales/en.json"))
-register("ru", () => import("@/locales/ru.json"))
+import en from "@/locales/en.json"
+import ru from "@/locales/ru.json"
+
+register("en", () => Promise.resolve(en))
+register("ru", () => Promise.resolve(ru))
 
 export const STORAGE_KEY = "locale_code_v1"
 
