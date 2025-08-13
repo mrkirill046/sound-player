@@ -4,9 +4,10 @@
     import {onMount} from "svelte"
     import {listen} from "@tauri-apps/api/event"
     import {frontendReady, playAudio} from "@/lib/player"
-    import {info, error} from "@tauri-apps/plugin-log"
+    import {error, info} from "@tauri-apps/plugin-log"
     import {isFileSupported, toaster} from "@/lib/utils"
     import {currentPath, hasAudio} from "@/stores/audio-store"
+    import {t} from "svelte-i18n"
 
     listen<string>("open-file", async (event) => {
         const path = event.payload
@@ -22,7 +23,7 @@
                     await playAudio(path)
                 }, 300)
             } else {
-                toaster.error({title: "File is not supported", closable: false})
+                toaster.error({title: $t("Toast.FileNotSupported"), closable: false})
             }
         } catch (e) {
             error(`open-file event failed: ${e}`)
@@ -34,10 +35,10 @@
     })
 </script>
 
-<Header title="Play Audio Files" />
+<Header title={$t("Header.Play")}/>
 
 <main class="flex flex-col">
     <section class="flex flex-col h-full w-full justify-center items-center flex-1">
-        <Player />
+        <Player/>
     </section>
 </main>

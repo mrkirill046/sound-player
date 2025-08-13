@@ -48,31 +48,31 @@
 {#snippet Menu()}
     <div class="flex items-center justify-between w-full px-4 sm:px-8">
         <button on:click={restartAudio} aria-label="Restart">
-            <RotateCcw />
+            <RotateCcw/>
         </button>
 
         <div class="flex gap-3">
             <button on:click={previousAudio} aria-label="Previous Audio">
-                <SkipBack fill="currentColor" size={42} />
+                <SkipBack fill="currentColor" size={42}/>
             </button>
 
             {#if $isPlaying}
                 <button on:click={pauseAudio} aria-label="Pause">
-                    <CustomCirclePause size={96} />
+                    <CustomCirclePause size={96}/>
                 </button>
             {:else}
                 <button on:click={resumeAudio} aria-label="Resume">
-                    <CustomCirclePlay size={96} />
+                    <CustomCirclePlay size={96}/>
                 </button>
             {/if}
 
             <button on:click={nextAudio} aria-label="Next Audio">
-                <SkipForward fill="currentColor" size={42} />
+                <SkipForward fill="currentColor" size={42}/>
             </button>
         </div>
 
         <button aria-label="Add to favorite">
-            <Heart />
+            <Heart/>
         </button>
     </div>
 {/snippet}

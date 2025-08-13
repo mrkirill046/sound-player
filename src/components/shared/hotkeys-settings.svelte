@@ -1,6 +1,7 @@
 <script lang="ts">
-    import {hotkeys, defaultHotkeys, type HotkeyAction} from "@/stores/hotkeys-store"
+    import {defaultHotkeys, type HotkeyAction, hotkeys} from "@/stores/hotkeys-store"
     import {get} from "svelte/store"
+    import {t} from "svelte-i18n"
 
     let local = {...get(hotkeys)}
     let waitingFor: HotkeyAction | null = null
@@ -30,17 +31,17 @@
     }
 </script>
 
-<svelte:window on:keydown={onKeydown} />
+<svelte:window on:keydown={onKeydown}/>
 
 <section class="space-y-6 p-6 px-12">
-    <h2 class="text-4xl font-bold font-marker-gothic text-center">Hotkeys</h2>
+    <h2 class="text-4xl font-bold font-marker-gothic text-center">{$t("Settings.Hotkeys")}</h2>
 
     <div class="overflow-x-auto rounded-lg shadow">
         <table class="w-full border-collapse bg-surface-100-900 rounded-lg text-center">
             <thead>
                 <tr class="bg-surface-300-700">
-                    <th class="p-3 text-sm font-semibold font-marker-gothic">Action</th>
-                    <th class="p-3 text-sm font-semibold font-marker-gothic">Key</th>
+                    <th class="p-3 text-sm font-semibold font-marker-gothic">{$t("Settings.Action")}</th>
+                    <th class="p-3 text-sm font-semibold font-marker-gothic">{$t("Settings.Key")}</th>
                 </tr>
             </thead>
 
@@ -55,7 +56,7 @@
 
                         <td class="p-3">
                             {#if waitingFor === action}
-                                <span class="px-2 py-1 bg-secondary-50-950/20 rounded text-sm"> Press key... </span>
+                                <span class="px-2 py-1 bg-secondary-50-950/20 rounded text-sm">{$t("Settings.Press")}</span>
                             {:else}
                                 <button
                                     class="px-2 py-1 bg-secondary-50-950/60 rounded text-sm transition-colors duration-300 ease-in-out hover:bg-secondary-50-950/100 font-marker-gothic"
@@ -75,6 +76,6 @@
         class="mt-4 px-4 py-2 bg-red-500 text-white rounded text-sm font-marker-gothic hover:bg-red-600 transition-colors duration-300 ease-in-out"
         on:click={resetToDefaults}
     >
-        Reset to default
+        {$t("Settings.Reset")}
     </button>
 </section>

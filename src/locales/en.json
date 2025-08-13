@@ -1,0 +1,28 @@
+{
+  "Toast": {
+    "FileNotSupported": "File is not supported"
+  },
+  "DropZone": {
+    "Drop": "Drop file here",
+    "Drag": "Drag file here",
+    "ClickOrDrag": "Click or drag & drop file here"
+  },
+  "Settings": {
+    "Reset": "Reset to default",
+    "Press": "Press key...",
+    "Hotkeys": "Hotkeys",
+    "Action": "Action",
+    "Key": "Key",
+    "Current": "Current",
+    "Apply": "Apply",
+    "Themes": "Themes",
+    "Theme": "Theme",
+    "Colors": "Colors",
+    "Languages": "Languages",
+    "Language": "Language"
+  },
+  "Header": {
+    "Play": "Play Audio Files",
+    "Settings": "Settings"
+  }
+}
